@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ru.jankbyte.classextractor</groupId>
+  <artifactId>runtime-class-extractor</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0</version>
+  <name>Demo Java agent</name>
+  <description>The demonstration of Java-agent</description>
+  <properties>
+    <maven.compiler.release>17</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <agentClassName>ru.jankbyte.classextractor.AgentLoader</agentClassName>
+  </properties>
+  <dependencies>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+          <archive>
+            <index>true</index>
+            <manifest>
+              <addClasspath>true</addClasspath>
+            </manifest>
+            <manifestEntries>
+              <Premain-Class>${agentClassName}</Premain-Class>
+              <Agent-Class>${agentClassName}</Agent-Class>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+        <configuration>
+          <compilerArgs>
+            <arg>-Xlint:deprecation</arg>
+            <arg>-parameters</arg>
+          </compilerArgs>
+          <fork>true</fork>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
